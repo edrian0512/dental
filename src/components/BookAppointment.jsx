@@ -3,6 +3,22 @@ import { FaCalendarAlt, FaChevronRight, FaClock, FaPhone, FaTooth, FaUser } from
 import { GiToothbrush } from "react-icons/gi";
 
 
+const sendToGoogleSheets = async () => {
+  try {
+    await fetch("YOUR_WEB_APP_URL_HERE", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    alert("Appointment booked and saved to Google Sheets!");
+  } catch (error) {
+    console.error("Error!", error.message);
+    alert("Failed to save appointment.");
+  }
+};
+
 const BookAppointment = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -12,6 +28,7 @@ const BookAppointment = () => {
     time: '',
     service: 'General Checkup',
   });
+
 
   const services = [
     'General Checkup',
@@ -195,7 +212,12 @@ const BookAppointment = () => {
                   <span className="font-medium">{formData.service}</span>
                 </div>
               </div>
-              <button className="w-full max-w-xs py-4 bg-gradient-to-r from-sky-500 to-sky-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">Confirm Appointment</button>
+              <button
+                onClick={sendToGoogleSheets}
+                className="w-full max-w-xs py-4 bg-gradient-to-r from-sky-500 to-sky-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                Confirm Appointment
+              </button>
+
             </div>
           )}
           <div className="px-8 pb-8 flex justify-between">
@@ -220,5 +242,8 @@ const BookAppointment = () => {
     </div>
   );
 };
+
+
+
 
 export default BookAppointment
