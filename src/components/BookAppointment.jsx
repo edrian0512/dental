@@ -5,7 +5,7 @@ import { GiToothbrush } from "react-icons/gi";
 
 const sendToGoogleSheets = async () => {
   try {
-    await fetch("YOUR_WEB_APP_URL_HERE", {
+    await fetch("https://script.google.com/macros/s/AKfycbzFUTGx3kSukaaA9e8-cEa56UKR753IFmVjWW32LeRSj6yoYXv-t0OfMTds_Ho-_znK/exec", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -13,6 +13,16 @@ const sendToGoogleSheets = async () => {
       },
     });
     alert("Appointment booked and saved to Google Sheets!");
+    
+    // Reset form and go back to step 1
+    setFormData({
+      name: '',
+      phone: '',
+      date: '',
+      time: '',
+      service: 'General Checkup',
+    });
+    setActiveStep(1);
   } catch (error) {
     console.error("Error!", error.message);
     alert("Failed to save appointment.");
