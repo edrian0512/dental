@@ -13,16 +13,20 @@ const Hero = () => {
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque, enim. Expedita!
                     </p>
                     <a
-                        href='#'
-                        className='inline-flex items-center bg-sky-600 text-white px-3 py-1 sm:px-6 sm:py-3 rounded-xl hover:bg-sky-700 transition text-base font-medium'>
-
-                            <CalendarCheck className='w-5 h-5 mr-2'/>
-                            Book Appointment
+                        href="#book"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.querySelector('#book')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="inline-flex items-center bg-sky-600 text-white px-3 py-1 sm:px-6 sm:py-3 rounded-xl hover:bg-sky-700 transition text-base font-medium"
+                    >
+                        <CalendarCheck className="w-5 h-5 mr-2" />
+                        Book Appointment
                     </a>
                 </div>
                 <div className='flex justify-center'>
                     <img src={hero} alt='Dental' className='w-80 lg:w-[429px] rounded-4xl' />
-                    
+
                 </div>
 
             </div>
