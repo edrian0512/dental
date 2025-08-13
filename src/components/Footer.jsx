@@ -19,23 +19,26 @@ const Footer = () => {
     const contactInfo = [
         {
             icon: <FaPhone className="mr-4 text-white/70" />,
-            text: <a href="#" className="hover:text-sky-300 transition-colors">
+            text: (
                 <a href="tel:+639082447777" className="hover:text-sky-300 transition-colors">
                     +63 908 244 7777
                 </a>
-            </a>
+            ),
         },
         {
             icon: <MdOutlineEmail className="mr-4 text-white/70" />,
-            text: <a href="#" className="hover:text-sky-300 transition-colors">
-                test@gmail.com
-            </a>
+            text: (
+                <a href="mailto:test@gmail.com" className="hover:text-sky-300 transition-colors">
+                    test@gmail.com
+                </a>
+            ),
         },
         {
             icon: <FaMapMarkedAlt className="mr-4 text-white/70" />,
-            text: <span> Purok 5, Brgy Testing Avenue Lipa City</span>
+            text: <span>Purok 5, Brgy Testing Avenue Lipa City</span>,
         },
     ];
+
     return (
         <footer className="bg-gradient-to-b from-blue-950 to-blue-950 text-white pt-16 pb-12 relative overflow-hidden">
             <div className="absolute bottom-0 left-0 right-0 h-20 bg-cover opacity-20"></div>

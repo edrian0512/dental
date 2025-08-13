@@ -16,46 +16,46 @@ const BookAppointment = () => {
 
   // Google Sheet Function
   const sendToGoogleSheets = async () => {
-  try {
-    const form = new FormData();
-    form.append("name", formData.name);
-    form.append("phone", formData.phone);
-    form.append("date", formData.date);
-    form.append("time", formData.time);
-    form.append("service", formData.service);
+    try {
+      const form = new FormData();
+      form.append("name", formData.name);
+      form.append("phone", formData.phone);
+      form.append("date", formData.date);
+      form.append("time", formData.time);
+      form.append("service", formData.service);
 
-    await fetch("https://script.google.com/macros/s/AKfycbx9ecWpeCxQfONJNbVswo5cv9o-Afdrie2c-OOiblnO1IgqitpsRSuGKgg9HTQlu4ip/exec", {
-      method: "POST",
-      body: form,
-    });
+      await fetch("https://script.google.com/macros/s/AKfycbx9ecWpeCxQfONJNbVswo5cv9o-Afdrie2c-OOiblnO1IgqitpsRSuGKgg9HTQlu4ip/exec", {
+        method: "POST",
+        body: form,
+      });
 
-    Swal.fire({
-      title: 'Booking Confirmed!',
-      text: 'Your appointment has been saved to Google Sheets.',
-      icon: 'success',
-      confirmButtonText: 'OK'
-    });
+      Swal.fire({
+        title: 'Booking Confirmed!',
+        text: 'Your appointment has been saved to Google Sheets.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
 
-    // Reset form & step
-    setFormData({
-      name: '',
-      phone: '',
-      date: '',
-      time: '',
-      service: 'General Checkup',
-    });
-    setActiveStep(1);
+      // Reset form & step
+      setFormData({
+        name: '',
+        phone: '',
+        date: '',
+        time: '',
+        service: 'General Checkup',
+      });
+      setActiveStep(1);
 
-  } catch (error) {
-    console.error("Error!", error.message);
-    Swal.fire({
-      title: 'Error!',
-      text: 'Failed to save your appointment. Please try again.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    });
-  }
-};
+    } catch (error) {
+      console.error("Error!", error.message);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to save your appointment. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  };
 
 
   const services = [
@@ -78,7 +78,46 @@ const BookAppointment = () => {
 
   };
 
-  const nextStep = () => setActiveStep(prev => prev + 1);
+  const nextStep = () => {
+    if (activeStep === 1) {
+      if (!formData.name.trim() || !formData.phone.trim()) {
+        Swal.fire({
+          title: 'Missing Information',
+          text: 'Please enter your name and phone number before continuing.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
+      // ✅ Check if phone is exactly 11 digits and numeric
+      const phonePattern = /^\d{11}$/;
+      if (!phonePattern.test(formData.phone)) {
+        Swal.fire({
+          title: 'Invalid Phone Number',
+          text: 'Contact number must be exactly 11 digits.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+    }
+
+    if (activeStep === 2) {
+      if (!formData.date || !formData.time || !formData.service) {
+        Swal.fire({
+          title: 'Missing Information',
+          text: 'Please select a date, time, and service before continuing.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+    }
+
+    setActiveStep(prev => prev + 1);
+  };
+
   const prevStep = () => setActiveStep(prev => prev - 1);
 
 
