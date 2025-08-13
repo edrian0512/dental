@@ -151,7 +151,7 @@ const BookAppointment = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth='2'
-                          d='M5 13 L14 4 L19 7'></path>
+                          d='M5 13 l4 4 L19 7'></path>
                       </svg>
                     ) : (
                       step
