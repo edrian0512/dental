@@ -16,36 +16,36 @@ const BookAppointment = () => {
 
   // Google Sheet Function
   const sendToGoogleSheets = async () => {
-    try {
-      const form = new FormData();
-      form.append("name", formData.name);
-      form.append("phone", formData.phone);
-      form.append("date", formData.date);
-      form.append("time", formData.time);
-      form.append("service", formData.service);
+  try {
+    const form = new FormData();
+    form.append("name", formData.name);
+    form.append("phone", formData.phone);
+    form.append("date", formData.date);
+    form.append("time", formData.time);
+    form.append("service", formData.service);
 
-      await fetch("https://script.google.com/macros/s/AKfycbzFUTGx3kSukaaA9e8-cEa56UKR753IFmVjWW32LeRSj6yoYXv-t0OfMTds_Ho-_znK/exec", {
-        method: "POST",
-        body: form,
-      });
+    await fetch("https://script.google.com/macros/s/AKfycbx9ecWpeCxQfONJNbVswo5cv9o-Afdrie2c-OOiblnO1IgqitpsRSuGKgg9HTQlu4ip/exec", {
+      method: "POST",
+      body: form,
+    });
 
-      alert("Appointment booked and saved to Google Sheets!");
+    alert("Appointment booked and saved to Google Sheets!");
 
-      // Reset form
-      setFormData({
-        name: '',
-        phone: '',
-        date: '',
-        time: '',
-        service: 'General Checkup',
-      });
-      setActiveStep(1);
+    // Reset form & step
+    setFormData({
+      name: '',
+      phone: '',
+      date: '',
+      time: '',
+      service: 'General Checkup',
+    });
+    setActiveStep(1);
 
-    } catch (error) {
-      console.error("Error!", error.message);
-      alert("Failed to save appointment.");
-    }
-  };
+  } catch (error) {
+    console.error("Error!", error.message);
+    alert("Failed to save appointment.");
+  }
+};
 
   const services = [
     'General Checkup',
@@ -101,7 +101,7 @@ const BookAppointment = () => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth='2'
-                          d='M5 1314 4L19 7'></path>
+                          d='M5 13 L14 4 L19 7'></path>
                       </svg>
                     ) : (
                       step
