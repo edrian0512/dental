@@ -32,7 +32,7 @@ const Header = () => {
                 </nav>
                 <div className='hidden md:flex items-center space-x-2'>
                     <PhoneCall className='text-sky-600 ' />
-                    <a href='#' className='bg-sky-600 text-white px-4 py-2 rounded-xl hover:bg-sky-700 transition text-sm'>
+                    <a href='book' className='bg-sky-600 text-white px-4 py-2 rounded-xl hover:bg-sky-700 transition text-sm'>
                         Book Appointment
                     </a>
                 </div>
