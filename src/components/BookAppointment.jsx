@@ -3,32 +3,6 @@ import { FaCalendarAlt, FaChevronRight, FaClock, FaPhone, FaTooth, FaUser } from
 import { GiToothbrush } from "react-icons/gi";
 
 
-const sendToGoogleSheets = async () => {
-  try {
-    await fetch("https://script.google.com/macros/s/AKfycbzFUTGx3kSukaaA9e8-cEa56UKR753IFmVjWW32LeRSj6yoYXv-t0OfMTds_Ho-_znK/exec", {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    alert("Appointment booked and saved to Google Sheets!");
-    
-    // Reset form and go back to step 1
-    setFormData({
-      name: '',
-      phone: '',
-      date: '',
-      time: '',
-      service: 'General Checkup',
-    });
-    setActiveStep(1);
-  } catch (error) {
-    console.error("Error!", error.message);
-    alert("Failed to save appointment.");
-  }
-};
-
 const BookAppointment = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -39,6 +13,33 @@ const BookAppointment = () => {
     service: 'General Checkup',
   });
 
+
+  // Google Sheet Function
+  const sendToGoogleSheets = async () => {
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbzFUTGx3kSukaaA9e8-cEa56UKR753IFmVjWW32LeRSj6yoYXv-t0OfMTds_Ho-_znK/exec", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      alert("Appointment booked and saved to Google Sheets!");
+
+      // Reset form and go back to step 1
+      setFormData({
+        name: '',
+        phone: '',
+        date: '',
+        time: '',
+        service: 'General Checkup',
+      });
+      setActiveStep(1);
+    } catch (error) {
+      console.error("Error!", error.message);
+      alert("Failed to save appointment.");
+    }
+  };
 
   const services = [
     'General Checkup',
