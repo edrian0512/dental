@@ -17,16 +17,21 @@ const BookAppointment = () => {
   // Google Sheet Function
   const sendToGoogleSheets = async () => {
     try {
+      const form = new FormData();
+      form.append("name", formData.name);
+      form.append("phone", formData.phone);
+      form.append("date", formData.date);
+      form.append("time", formData.time);
+      form.append("service", formData.service);
+
       await fetch("https://script.google.com/macros/s/AKfycbzFUTGx3kSukaaA9e8-cEa56UKR753IFmVjWW32LeRSj6yoYXv-t0OfMTds_Ho-_znK/exec", {
         method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: form,
       });
+
       alert("Appointment booked and saved to Google Sheets!");
 
-      // Reset form and go back to step 1
+      // Reset form
       setFormData({
         name: '',
         phone: '',
@@ -35,6 +40,7 @@ const BookAppointment = () => {
         service: 'General Checkup',
       });
       setActiveStep(1);
+
     } catch (error) {
       console.error("Error!", error.message);
       alert("Failed to save appointment.");
