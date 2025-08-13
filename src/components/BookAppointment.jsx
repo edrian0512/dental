@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { FaCalendarAlt, FaChevronRight, FaClock, FaPhone, FaTooth, FaUser } from "react-icons/fa";
 import { GiToothbrush } from "react-icons/gi";
-
+import Swal from 'sweetalert2';
 
 const BookAppointment = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -29,7 +29,12 @@ const BookAppointment = () => {
       body: form,
     });
 
-    alert("Appointment booked and saved to Google Sheets!");
+    Swal.fire({
+      title: 'Booking Confirmed!',
+      text: 'Your appointment has been saved to Google Sheets.',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    });
 
     // Reset form & step
     setFormData({
@@ -43,9 +48,15 @@ const BookAppointment = () => {
 
   } catch (error) {
     console.error("Error!", error.message);
-    alert("Failed to save appointment.");
+    Swal.fire({
+      title: 'Error!',
+      text: 'Failed to save your appointment. Please try again.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
   }
 };
+
 
   const services = [
     'General Checkup',
