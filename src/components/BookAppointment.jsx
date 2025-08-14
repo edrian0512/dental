@@ -4,6 +4,7 @@ import { GiToothbrush } from "react-icons/gi";
 import Swal from 'sweetalert2';
 
 const BookAppointment = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
@@ -16,6 +17,10 @@ const BookAppointment = () => {
 
   // Google Sheet Function
   const sendToGoogleSheets = async () => {
+    if (isSubmitting) return; // ⛔ prevent multiple submissions
+
+    setIsSubmitting(true); // 🔒 lock button
+
     try {
       const form = new FormData();
       form.append("name", formData.name);
@@ -54,6 +59,8 @@ const BookAppointment = () => {
         icon: 'error',
         confirmButtonText: 'OK'
       });
+    } finally {
+      setIsSubmitting(false); // 🔓 unlock button
     }
   };
 
@@ -281,8 +288,13 @@ const BookAppointment = () => {
               </div>
               <button
                 onClick={sendToGoogleSheets}
-                className="w-full max-w-xs py-4 bg-gradient-to-r from-sky-500 to-sky-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
-                Confirm Appointment
+                disabled={isSubmitting}
+                className={`w-full max-w-xs py-4 font-bold rounded-xl shadow-lg transition-all transform ${isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-sky-500 to-sky-500 text-white hover:shadow-xl hover:scale-105'
+                  }`}
+              >
+                {isSubmitting ? 'Booking...' : 'Confirm Appointment'}
               </button>
 
             </div>
